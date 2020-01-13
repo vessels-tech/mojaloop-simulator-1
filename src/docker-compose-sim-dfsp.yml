@@ -2,14 +2,16 @@ version: '3'
 services:
  redis-sim:
    image: "redis:5.0.4-alpine"
+   container_name: redis-sim
    volumes:
-    - redis.conf:/usr/local/etc/redis/redis.conf
+    - ./redis.conf:/usr/local/etc/redis/redis.conf
    command:
     - redis-server
     - /usr/local/etc/redis/redis.conf
-    
+
  sim:
    image: "mojaloop-simulator-backend"
+   container_name: sim
    build: ../
    env_file: ./sim-backend.env
    ports:
@@ -18,9 +20,11 @@ services:
      - "3003:3003"
    depends_on:
      - scheme-adapter-sim
+
  scheme-adapter-sim:
-  #  image: "mojaloop/sdk-scheme-adapter:latest"
-   image: ldaly/sdk-scheme-adapter:v0.0.1
+   image: "mojaloop/sdk-scheme-adapter:latest"
+  #  image: ldaly/sdk-scheme-adapter:v0.0.1
+   container_name: scheme-adapter-sim
    env_file: ./scheme-adapter-sim.env
    ports:
      - "4000:4000"
@@ -30,8 +34,9 @@ services:
  redis-dfsp:
    image: "redis:5.0.4-alpine"
  scheme-adapter-dfsp:
-  #  image: "mojaloop/sdk-scheme-adapter:latest"
-   image: ldaly/sdk-scheme-adapter:v0.0.1
+   image: "mojaloop/sdk-scheme-adapter:latest"
+   container_name: scheme-adapter-dfsp
+  #  image: ldaly/sdk-scheme-adapter:v0.0.1
    env_file: ./scheme-adapter-dfsp.env
    ports:
      - "5000:4000"
@@ -40,6 +45,7 @@ services:
      - redis-dfsp
  sdk-mock-dfsp-backend:
    image: "mojaloop/sdk-mock-dfsp-backend:latest"
+   container_name: sdk-mock-dfsp-backend
    env_file: ./mock-backend.env
    ports:
      - "6000:3000"
