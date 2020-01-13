@@ -1,0 +1,51 @@
+config:
+  target: 'http://localhost:3003'
+  phases:
+    # - duration: 1
+      # arrivalRate: 1
+    - duration: 120
+      arrivalRate: 20
+  # defaults:
+    # headers:
+      # x-my-service-auth: '987401838271002188298567'
+scenarios:
+  - flow:
+    - post:
+        url: "/scenarios"
+        json:
+          - name: scenario3
+            operation: postTransfers
+            body:
+              from:
+                displayName: "Bob bobby"
+                idType: "MSISDN"
+                idValue: "123456789"
+              to:
+                idType: "MSISDN"
+                idValue: "987654321"
+              amountType: SEND
+              currency: USD
+              amount: "100"
+              transactionType: TRANSFER
+              note: "payment1"
+              homeTransactionId: aaa
+        # "name": "scenario3",
+        # "operation": "postTransfers",
+        # "body": {
+        #     "from": {
+        #         "displayName": "Frank Bush",
+        #         "idType": "MSISDN",
+        #         "idValue": "123456789"
+        #     },
+        #     "to": {
+        #         "idType": "MSISDN",
+        #         "idValue": "987654321"
+        #     },
+        #     "amountType": "SEND",
+        #     "currency": "USD",
+        #     "amount": "100",
+        #     "transactionType": "TRANSFER",
+        #     "note": "test payment",
+        #     "homeTransactionId": "AAA"
+        # }
+    

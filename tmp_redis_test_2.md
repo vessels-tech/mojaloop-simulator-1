@@ -1,5 +1,12 @@
 # Testing Redis Disk Usage
 
+with redis.conf settings:
+
+```
+maxmemory 2mb
+maxmemory-policy allkeys-lru
+```
+
 
 ## Up And Running:
 ```bash
